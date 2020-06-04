@@ -1,0 +1,5 @@
+@mixin my-transition($time) {
+    @each $navigator in $navigators {
+        #{$navigator}transition: all $time ease-in-out;
+    }
+}

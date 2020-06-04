@@ -1,0 +1,174 @@
+@import 'variables';
+@import 'mixins';
+@import 'default';
+
+body {
+    background: url(../img/bg/background.jpg) no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center center;
+    height: 100vh;
+}
+
+.title {
+    background: $blue;
+    border-radius: 20px;
+    color: $white;
+    font-size: 24px;
+    font-weight: 500;
+    margin: 20px 0;
+    text-align: center;
+    text-transform: uppercase;
+    padding: 10px 0;
+}
+
+.title,
+.flip-container {
+    max-width: 540px;
+}
+
+.flip-container,
+.card {
+    border-radius: 4px;
+    padding: 10px;;
+}
+
+.flip-container {
+    align-items: center;
+    background: $white-rgba;
+    justify-content: center;
+    perspective: 1000px;
+    
+    .flipper {
+        align-items: center;
+        height: 120px;
+        margin: 5px;
+        position: relative;
+        transform: scale(1);
+        transform-style: preserve-3d;
+        transition: transform .5s;
+        width: 120px;
+        
+        &:active {
+            transform: scale(0.97);
+            transition: transform .2s;
+        }
+        
+        &.flip {
+            transform: rotateY(180deg);
+        }
+    }
+    
+    .card {
+        backface-visibility: hidden;
+        background: $blue;
+        position: absolute;
+
+        &.front {
+            transform: rotateY(180deg);
+        }
+    }
+}
+
+.icons {
+    background-image: url(../img/sprites/sprite.png);
+    display: block;
+    height: 100px;
+    width: 100px;
+    
+    &.bee {
+        background-position: -100px 0px;
+    }
+
+    &.bird {
+        background-position: 0px -100px;
+    }
+
+    &.butterfly {
+        background-position: -100px -100px;
+    }
+
+    &.cat {
+        background-position: -200px 0px;
+    }
+
+    &.chicken {
+        background-position: -200px -100px;
+    }
+
+    &.cow {
+        background-position: 0px -200px;
+    }
+
+    &.dog {
+        background-position: -100px -200px;
+    }
+
+    &.dolphin {
+        background-position: -200px -200px;
+    }
+
+    &.duck {
+        background-position: -300px 0px;
+    }
+
+    &.elephant {
+        background-position: -300px -100px;
+    }
+
+    &.fish {
+        background-position: -300px -200px;
+    }
+
+    &.frog {
+        background-position: 0px -300px;
+    }
+
+    &.horse {
+        background-position: -100px -300px;
+    }
+
+    &.lion {
+        background-position: -200px -300px;
+    }
+
+    &.owl {
+        background-position: -300px -300px;
+    }
+
+    &.parrot {
+        background-position: -400px 0px;
+    }
+
+    &.penguin {
+        background-position: -400px -100px;
+    }
+
+    &.pig {
+        background-position: -400px -200px;
+    }
+
+    &.question-mark {
+        background-position: -400px -300px;
+    }
+
+    &.rabbit {
+        background-position: 0px -400px;
+    }
+
+    &.running-rabbit {
+        background-position: -100px -400px;
+    }
+
+    &.sheep {
+        background-position: -200px -400px;
+    }
+
+    &.turtle {
+        background-position: -300px -400px;
+    }
+
+    &.whale {
+        background-position: -400px -400px;
+    }
+}
