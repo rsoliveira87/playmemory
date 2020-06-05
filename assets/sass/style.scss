@@ -7,16 +7,13 @@ body {
     background-attachment: fixed;
     background-size: cover;
     background-position: center center;
-    height: 100vh;
 }
 
 .title {
     background: $blue;
     border-radius: 20px;
-    color: $white;
     font-size: 24px;
     font-weight: 500;
-    margin: 20px 0;
     text-align: center;
     text-transform: uppercase;
     padding: 10px 0;
@@ -24,20 +21,88 @@ body {
 
 .title,
 .flip-container {
-    max-width: 540px;
+    margin: 20px 0;
+    max-width: 95%;
+}
+
+.title,
+.flip-container .text {
+    color: $white;
 }
 
 .flip-container,
-.card {
+.flipper {
     border-radius: 4px;
-    padding: 10px;;
+    padding: 10px;
 }
 
 .flip-container {
     align-items: center;
-    background: $white-rgba;
-    justify-content: center;
     perspective: 1000px;
+    
+    &.align-center {
+        justify-content: center;
+    }
+    
+    &.between {
+        justify-content: space-between;
+    }
+    
+    &:not(.bg-blue) {
+        background: $white-rgba;
+    }
+
+    &.bg-blue {
+        background: $blue;
+    }
+
+    .description {
+        font-size: 20px;
+        font-weight: 500;
+        margin-bottom: 20px;
+    }
+
+    .form {
+        position: relative;
+    }
+    
+    .form,
+    .difficulty {
+        width: 100%;
+    }
+
+    .difficulty {
+        appearance: none;
+        -webkit-appearance: none;
+        background: $white;
+        border: 2px solid $blue;
+        border-radius: 4px;
+        color: $blue;
+        font-size: 18px;
+        margin-bottom: 20px;
+        padding: 20px;
+        outline: none;
+    }
+
+    .icon {
+        height: 12px;
+        position: absolute;
+        right: 20px;
+        top: 25px;
+        width: 12px;
+    }
+
+    .btn {
+        background: $blue;
+        border: none;
+        border-radius: 4px;
+        color: $white;
+        cursor: pointer;
+        display: block;
+        font-size: 22px;
+        padding: 20px;
+        width: 100%;
+    }
     
     .flipper {
         align-items: center;
@@ -57,16 +122,27 @@ body {
         &.flip {
             transform: rotateY(180deg);
         }
+        
+        &:not(.hit) {
+            background: $blue;            
+        }
+    
+        &.hit {
+            background: $green;
+        }
     }
     
     .card {
         backface-visibility: hidden;
-        background: $blue;
         position: absolute;
-
+        
         &.front {
             transform: rotateY(180deg);
-        }
+        }        
+    }
+
+    .text {
+        font-size: 22px;
     }
 }
 
@@ -76,6 +152,10 @@ body {
     height: 100px;
     width: 100px;
     
+    &.bear {
+        background-position: 0px 0px;
+    }
+
     &.bee {
         background-position: -100px 0px;
     }
@@ -136,27 +216,27 @@ body {
         background-position: -300px -300px;
     }
 
-    &.parrot {
+    &.panda {
         background-position: -400px 0px;
     }
 
-    &.penguin {
+    &.parrot {
         background-position: -400px -100px;
     }
 
-    &.pig {
+    &.penguin {
         background-position: -400px -200px;
     }
 
-    &.question-mark {
+    &.pig {
         background-position: -400px -300px;
     }
 
-    &.rabbit {
+    &.question-mark {
         background-position: 0px -400px;
     }
 
-    &.running-rabbit {
+    &.rabbit {
         background-position: -100px -400px;
     }
 

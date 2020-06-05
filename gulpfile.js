@@ -56,7 +56,7 @@ gulp.task('jsProd', cb => {
 
 gulp.task('generateSprite', () => {
 
-	const spriteData = gulp.src('assets/img/icons/*.png')
+	const spriteData = gulp.src('assets/img/icons/png/*.png')
 						.pipe(spritesmith({
 							imgName : 'sprite.png',
 							cssName : 'sprite.css'
