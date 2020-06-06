@@ -2,13 +2,12 @@ class PlayMemory {
 
     constructor() {
         // variáveis globais
-        this.flippers = document.querySelectorAll( '.flipper' );
-        this.totalPoints = this.flippers.length / 2;
+        this.flippers = [];
+        this.totalPoints = 0;
         this.points = 0;
         this.plays = 0;
         this.isCompare = false;
-
-        console.log(this.totalPoints)
+        this.animals = ['bear','bee','bird','butterfly','cat','chicken','cow','dog','dolphin','duck','elephant','fish','frog','horse','lion','owl','panda','parrot','penguin','pig','rabbit','sheep','turtle','whale'];
     }
 
     /**
@@ -19,7 +18,6 @@ class PlayMemory {
      */
     onInit() {
         this.startButtonAction();
-        this.addClickAction();
     }
 
     /**
@@ -74,7 +72,10 @@ class PlayMemory {
      * @method removeFlip
      */
     removeFlip() {
-        const self = this;
+        const self = this, hits = document.querySelectorAll( '.flipper.hit' ) || [];
+
+        for( const hit of hits )
+            hit.classList.remove( 'hit' );
 
         setTimeout( () => {
             for( const flipper of self.flippers ) 
@@ -103,7 +104,7 @@ class PlayMemory {
             
             self.points++;
 
-            document.querySelector( '.flip-container .text .hits' ).innerText = self.points;
+            document.querySelector( '.play-container .text .hits' ).innerText = self.points;
         } else {
             setTimeout( () => {
                 first.classList.remove( 'flip' );
@@ -114,27 +115,51 @@ class PlayMemory {
         
         self.plays++;
 
-        document.querySelector( '.flip-container .text .plays' ).innerText = self.plays;
+        document.querySelector( '.play-container .text .plays' ).innerText = self.plays;
     }
 
-    showCards( limit ) {
-        const self = this;
+    createPlay( limit = 24 ) {
+        const self = this, playContainer = document.querySelector( '.play-container.play' );
+        let i = 0, markup = '';
 
-        self.flippers.forEach( ( item, index ) => {
-            if( index  >= limit )
-                item.classList.add( 'hidden' );
-        } );
+        for( ; i < limit; i++ ) {
+            markup += `
+                <a href="#" class="flipper flip" data-name="${self.animals[i]}">
+                    <div class="card front">
+                        <i class="icons ${self.animals[i]}"></i>
+                    </div>
+                    <div class="card back">
+                        <i class="icons question-mark"></i>
+                    </div>
+                </a>
+                <a href="#" class="flipper flip" data-name="${self.animals[i]}">
+                    <div class="card front">
+                        <i class="icons ${self.animals[i]}"></i>
+                    </div>
+                    <div class="card back">
+                        <i class="icons question-mark"></i>
+                    </div>
+                </a>
+            `;
+        }
 
-        self.flippers = document.querySelectorAll( '.flipper:not(.hidden)' );
+        playContainer.innerHTML = markup;
+
+        self.flippers = document.querySelectorAll( '.flipper' );
         self.totalPoints = self.flippers.length / 2;
+
+        self.sortCardsRandom();
+        self.addClickAction();
+        self.sortCardsRandom();
+        self.removeFlip();
     }
 
     startButtonAction() {
         const startButton = document.querySelector( '.btn.start' );
         const difficulty = document.querySelector( 'select.difficulty' );
-        const startContainer = document.querySelector( '.flip-container.start' );
-        const playContainer = document.querySelector( '.flip-container.play' );
-        const infoContainer = document.querySelector( '.flip-container.info' );
+        const startContainer = document.querySelector( '.play-container.start' );
+        const playContainer = document.querySelector( '.play-container.play' );
+        const infoContainer = document.querySelector( '.play-container.info' );
         const self = this;
 
         startButton.onclick = () => {
@@ -142,16 +167,17 @@ class PlayMemory {
             playContainer.classList.remove( 'hidden' );
             infoContainer.classList.remove( 'hidden' );
 
-            self.sortCardsRandom();
-            self.removeFlip();
-
             switch( difficulty.value ) {
                 case 'easy':
-                    self.showCards( 12 );
+                    self.createPlay( 6 );
                     break;
 
                 case 'intermediate':
-                    self.showCards( 24 );
+                    self.createPlay( 12 );
+                    break;
+
+                case 'hard':
+                    self.createPlay();
                     break;
 
                 default:
@@ -162,8 +188,9 @@ class PlayMemory {
 
     finishGame() {
         const self = this;
-        const finishContainer = document.querySelector( '.flip-container.finish' );
-        const playContainer = document.querySelector( '.flip-container.play' );
+        const finishContainer = document.querySelector( '.play-container.finish' );
+        const playContainer = document.querySelector( '.play-container.play' );
+        const restartButton = document.querySelector( '.play-container .btn.restart' );
 
         if( self.points === self.totalPoints ) {
             setTimeout( () => {
@@ -171,6 +198,20 @@ class PlayMemory {
                 finishContainer.classList.remove( 'hidden' );
             }, 1000 );
         }
+
+        restartButton.onclick = () => {
+            self.points = 0;
+            self.plays = 0;
+
+            document.querySelector( '.play-container .text .hits' ).innerText = self.points;
+            document.querySelector( '.play-container .text .plays' ).innerText = self.plays;
+
+            finishContainer.classList.add( 'hidden' );
+            playContainer.classList.remove( 'hidden' );
+
+            self.removeFlip();
+            self.sortCardsRandom();
+        };
     }
     
 }

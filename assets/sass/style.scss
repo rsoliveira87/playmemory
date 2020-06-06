@@ -20,23 +20,23 @@ body {
 }
 
 .title,
-.flip-container {
+.play-container {
     margin: 20px 0;
     max-width: 95%;
 }
 
 .title,
-.flip-container .text {
+.play-container .text {
     color: $white;
 }
 
-.flip-container,
+.play-container,
 .flipper {
     border-radius: 4px;
     padding: 10px;
 }
 
-.flip-container {
+.play-container {
     align-items: center;
     perspective: 1000px;
     
