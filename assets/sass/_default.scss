@@ -1,6 +1,6 @@
 * {
     box-sizing: border-box;
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Choko Plain';
     margin: 0;
     padding: 0;
 }
@@ -17,12 +17,12 @@ a:visited {
 
 .container {
     margin: 0 auto;
-    max-width: 970px;
+    padding: 0 10px;
 }
 
 .flex {
     display: flex;
-
+    
     &.wrap {
         flex-wrap: wrap;
     }
@@ -30,4 +30,17 @@ a:visited {
 
 .hidden {
     display: none;
+}
+
+@media (min-width: 769px) {
+    .container {
+        max-width: 970px;
+        @include my-property(transform, translateY(120px));
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        max-width: 100%;
+    }
 }

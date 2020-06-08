@@ -118,8 +118,8 @@ class PlayMemory {
         document.querySelector( '.play-container .text .plays' ).innerText = self.plays;
     }
 
-    createPlay( limit = 24 ) {
-        const self = this, playContainer = document.querySelector( '.play-container.play' );
+    getPlayMarkup( limit = 24 ) {
+        const self = this;
         let i = 0, markup = '';
 
         for( ; i < limit; i++ ) {
@@ -143,17 +143,9 @@ class PlayMemory {
             `;
         }
 
-        playContainer.innerHTML = markup;
-
-        self.flippers = document.querySelectorAll( '.flipper' );
-        self.totalPoints = self.flippers.length / 2;
-
-        self.sortCardsRandom();
-        self.addClickAction();
-        self.sortCardsRandom();
-        self.removeFlip();
+        return markup;
     }
-
+    
     startButtonAction() {
         const startButton = document.querySelector( '.btn.start' );
         const difficulty = document.querySelector( 'select.difficulty' );
@@ -161,28 +153,20 @@ class PlayMemory {
         const playContainer = document.querySelector( '.play-container.play' );
         const infoContainer = document.querySelector( '.play-container.info' );
         const self = this;
-
+        
         startButton.onclick = () => {
             startContainer.classList.add( 'hidden' );
             playContainer.classList.remove( 'hidden' );
             infoContainer.classList.remove( 'hidden' );
-
-            switch( difficulty.value ) {
-                case 'easy':
-                    self.createPlay( 6 );
-                    break;
-
-                case 'intermediate':
-                    self.createPlay( 12 );
-                    break;
-
-                case 'hard':
-                    self.createPlay();
-                    break;
-
-                default:
-                    break;
-            }
+            
+            playContainer.innerHTML = self.getPlayMarkup( +difficulty.value );
+            
+            self.flippers = document.querySelectorAll( '.flipper' );
+            self.totalPoints = self.flippers.length / 2;
+        
+            self.sortCardsRandom();
+            self.addClickAction();
+            self.removeFlip();
         };
     }
 

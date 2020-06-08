@@ -1,6 +1,7 @@
 @import 'variables';
 @import 'mixins';
 @import 'default';
+@import 'fonts';
 
 body {
     background: url(../img/bg/background.jpg) no-repeat;
@@ -14,15 +15,18 @@ body {
     border-radius: 20px;
     font-size: 24px;
     font-weight: 500;
-    text-align: center;
     text-transform: uppercase;
     padding: 10px 0;
 }
 
 .title,
+.play-container .description {
+    text-align: center;
+}
+
+.title,
 .play-container {
     margin: 20px 0;
-    max-width: 95%;
 }
 
 .title,
@@ -60,6 +64,7 @@ body {
         font-size: 20px;
         font-weight: 500;
         margin-bottom: 20px;
+        width: 100%;
     }
 
     .form {
@@ -72,16 +77,19 @@ body {
     }
 
     .difficulty {
-        appearance: none;
-        -webkit-appearance: none;
         background: $white;
         border: 2px solid $blue;
-        border-radius: 4px;
         color: $blue;
         font-size: 18px;
         margin-bottom: 20px;
-        padding: 20px;
+        @include my-property(appearance, none);
+    }
+    
+    .difficulty,
+    .btn {
+        border-radius: 4px;
         outline: none;
+        padding: 20px;
     }
 
     .icon {
@@ -100,19 +108,21 @@ body {
         cursor: pointer;
         display: block;
         font-size: 22px;
-        padding: 20px;
         width: 100%;
+        @include my-property(transition, .3s all ease-in-out);
+
+        &:hover {
+            @include my-property(transform, scale(0.97));
+        }
     }
     
     .flipper {
         align-items: center;
-        height: 120px;
         margin: 5px;
         position: relative;
         transform: scale(1);
         transform-style: preserve-3d;
         transition: transform .5s;
-        width: 120px;
         
         &:active {
             transform: scale(0.97);
@@ -149,106 +159,238 @@ body {
 .icons {
     background-image: url(../img/sprites/sprite.png);
     display: block;
-    height: 100px;
-    width: 100px;
+}
+
+@media (min-width: 769px) {
+    .title,
+    .play-container {
+        max-width: 95%;
+    }
+
+    .flipper {
+        height: 120px;
+        width: 120px;
+    }
+
+    .icons {   
+        height: 100px;
+        width: 100px;   
     
-    &.bear {
-        background-position: 0px 0px;
+        &.bear {
+            background-position: 0px 0px;
+        }
+
+        &.bee {
+            background-position: -100px 0px;
+        }
+
+        &.bird {
+            background-position: 0px -100px;
+        }
+
+        &.butterfly {            
+            background-position: -100px -100px;  
+        }
+
+        &.cat {            
+            background-position: -200px 0px;
+        }
+
+        &.chicken {            
+            background-position: -200px -100px;
+        }
+        
+        &.cow {            
+            background-position: 0px -200px;
+        }
+
+        &.dog {           
+            background-position: -100px -200px;
+        }
+
+        &.dolphin {            
+            background-position: -200px -200px;
+        }
+
+        &.duck {            
+            background-position: -300px 0px;
+        }
+
+        &.elephant {            
+            background-position: -300px -100px;
+        }
+
+        &.fish {
+            background-position: -300px -200px;
+        }
+
+        &.frog {            
+            background-position: 0px -300px;
+        }
+
+        &.horse {            
+            background-position: -100px -300px;
+        }
+
+        &.lion {            
+            background-position: -200px -300px;
+        }
+
+        &.owl {            
+            background-position: -300px -300px;
+        }
+        
+        &.panda {            
+            background-position: -400px 0px;           
+        }
+
+        &.parrot {            
+            background-position: -400px -100px;
+        }
+
+        &.penguin {            
+            background-position: -400px -200px;
+        }
+
+        &.pig {            
+            background-position: -400px -300px;
+        }
+
+        &.question-mark {            
+            background-position: 0px -400px;
+        }
+
+        &.rabbit {            
+            background-position: -100px -400px;
+        }
+
+        &.sheep {            
+            background-position: -200px -400px;
+        }
+
+        &.turtle {            
+            background-position: -300px -400px;
+        }
+
+        &.whale {            
+            background-position: -400px -400px;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .title,
+    .play-container {
+        max-width: 100%;
     }
 
-    &.bee {
-        background-position: -100px 0px;
+    .flipper {
+        height: 68px;
+        width: 68px;
     }
 
-    &.bird {
-        background-position: 0px -100px;
-    }
+    .icons {
+        height: 48px;
+        width: 48px;
 
-    &.butterfly {
-        background-position: -100px -100px;
-    }
+        &.bear {
+            background-position: -500px 0px;
+        }
 
-    &.cat {
-        background-position: -200px 0px;
-    }
+        &.bee {            
+            background-position: -500px -48px;
+        }
+        
+        &.bird {            
+            background-position: -500px -96px;           
+        }
 
-    &.chicken {
-        background-position: -200px -100px;
-    }
+        &.butterfly {            
+            background-position: -500px -144px;
+        }
 
-    &.cow {
-        background-position: 0px -200px;
-    }
+        &.cat {            
+            background-position: -500px -192px;
+        }
 
-    &.dog {
-        background-position: -100px -200px;
-    }
+        &.chicken {            
+            background-position: -500px -240px;
+        }
 
-    &.dolphin {
-        background-position: -200px -200px;
-    }
+        &.cow {            
+            background-position: -500px -288px;
+        }
 
-    &.duck {
-        background-position: -300px 0px;
-    }
+        &.dog {            
+            background-position: -500px -336px;
+        }
 
-    &.elephant {
-        background-position: -300px -100px;
-    }
+        &.dolphin {            
+            background-position: -500px -384px;
+        }
 
-    &.fish {
-        background-position: -300px -200px;
-    }
+        &.duck {            
+            background-position: -500px -432px;
+        }
 
-    &.frog {
-        background-position: 0px -300px;
-    }
+        &.elephant {            
+            background-position: 0px -500px;
+        }
 
-    &.horse {
-        background-position: -100px -300px;
-    }
+        &.fish {            
+            background-position: -48px -500px;
+        }
 
-    &.lion {
-        background-position: -200px -300px;
-    }
+        &.frog {            
+            background-position: -96px -500px;
+        }
 
-    &.owl {
-        background-position: -300px -300px;
-    }
+        &.horse {            
+            background-position: -144px -500px;
+        }
 
-    &.panda {
-        background-position: -400px 0px;
-    }
+        &.lion {            
+            background-position: -192px -500px;
+        }
 
-    &.parrot {
-        background-position: -400px -100px;
-    }
+        &.owl {
+            background-position: -240px -500px;
+        }
 
-    &.penguin {
-        background-position: -400px -200px;
-    }
+        &.panda {            
+            background-position: -288px -500px;            
+        }
 
-    &.pig {
-        background-position: -400px -300px;
-    }
+        &.parrot {            
+            background-position: -336px -500px;
+        }
 
-    &.question-mark {
-        background-position: 0px -400px;
-    }
+        &.penguin {           
+            background-position: -384px -500px;
+        }
 
-    &.rabbit {
-        background-position: -100px -400px;
-    }
+        &.pig {            
+            background-position: -432px -500px;
+        }
 
-    &.sheep {
-        background-position: -200px -400px;
-    }
+        &.question-mark {            
+            background-position: -480px -500px;
+        }
 
-    &.turtle {
-        background-position: -300px -400px;
-    }
+        &.rabbit {            
+            background-position: -548px 0px;
+        }
 
-    &.whale {
-        background-position: -400px -400px;
+        &.sheep {            
+            background-position: -548px -48px;
+        }
+
+        &.turtle {            
+            background-position: -548px -96px;
+        }
+
+        &.whale {            
+            background-position: -548px -144px;
+        }
     }
 }
