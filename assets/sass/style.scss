@@ -42,7 +42,7 @@ body {
 
 .play-container {
     align-items: center;
-    perspective: 1000px;
+    @include my-property(perspective, 1000px);
     
     &.align-center {
         justify-content: center;
@@ -64,15 +64,16 @@ body {
         font-size: 20px;
         font-weight: 500;
         margin-bottom: 20px;
-        width: 100%;
     }
 
     .form {
         position: relative;
     }
     
-    .form,
-    .difficulty {
+    .btn,
+    .description,
+    .difficulty, 
+    .form {
         width: 100%;
     }
 
@@ -108,7 +109,6 @@ body {
         cursor: pointer;
         display: block;
         font-size: 22px;
-        width: 100%;
         @include my-property(transition, .3s all ease-in-out);
 
         &:hover {
@@ -117,20 +117,19 @@ body {
     }
     
     .flipper {
-        align-items: center;
         margin: 5px;
         position: relative;
-        transform: scale(1);
-        transform-style: preserve-3d;
-        transition: transform .5s;
+        @include my-property(transform, scale(1));
+        @include my-property(transform-style, preserve-3d);
+        @include my-property(transition, transform .5s);
         
         &:active {
-            transform: scale(0.97);
-            transition: transform .2s;
+            @include my-property(transform, scale(0.97));
+            @include my-property(transition, transform .2s);
         }
         
         &.flip {
-            transform: rotateY(180deg);
+            @include my-property(transform, rotateY(180deg));
         }
         
         &:not(.hit) {
@@ -143,11 +142,11 @@ body {
     }
     
     .card {
-        backface-visibility: hidden;
+        @include my-property(backface-visibility, hidden);
         position: absolute;
         
         &.front {
-            transform: rotateY(180deg);
+            @include my-property(transform, rotateY(180deg));
         }        
     }
 
