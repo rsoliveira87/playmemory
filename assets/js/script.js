@@ -118,29 +118,31 @@ class PlayMemory {
         document.querySelector( '.play-container .text .plays' ).innerText = self.plays;
     }
 
-    getPlayMarkup( limit = 24 ) {
+    getPlayMarkup( limit ) {
         const self = this;
         let i = 0, markup = '';
 
-        for( ; i < limit; i++ ) {
-            markup += `
-                <a href="#" class="flipper flip" data-name="${self.animals[i]}">
-                    <div class="card front">
-                        <i class="icons ${self.animals[i]}"></i>
-                    </div>
-                    <div class="card back">
-                        <i class="icons question-mark"></i>
-                    </div>
-                </a>
-                <a href="#" class="flipper flip" data-name="${self.animals[i]}">
-                    <div class="card front">
-                        <i class="icons ${self.animals[i]}"></i>
-                    </div>
-                    <div class="card back">
-                        <i class="icons question-mark"></i>
-                    </div>
-                </a>
-            `;
+        if( limit !== 24 ) {
+            for ( let index = self.animals.length - 1; index > 0; index-- ) {
+                const j = Math.floor( Math.random() * ( index + 1 ) );
+                [self.animals[index], self.animals[j]] = [self.animals[j], self.animals[index]];
+            }
+        }
+
+        for( let index = 0; index < 2; index++  ) {
+            for( ; i < limit; i++ ) {
+                markup += `
+                            <a href="#" class="flipper flip" data-name="${self.animals[i]}">
+                                <div class="card front">
+                                    <i class="icons ${self.animals[i]}"></i>
+                                </div>
+                                <div class="card back">
+                                    <i class="icons question-mark"></i>
+                                </div>
+                            </a>
+                        `;
+            }
+            i = 0;
         }
 
         return markup;
