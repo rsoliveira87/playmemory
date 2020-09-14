@@ -8,6 +8,7 @@
 a,
 a:hover,
 a:visited {
+    outline: none;
     text-decoration: none;
 }
 
@@ -34,8 +35,16 @@ a:visited {
 
 @media (min-width: 769px) {
     .container {
-        max-width: 970px;
-        @include my-property(transform, translateY(120px));
+
+        &:not(.full) {
+            max-width: 970px;
+            @include my-property(transform, translateY(120px));
+        }
+
+        &.full {
+            max-width: 90%;
+            @include my-property(transform, translateY(60px));
+        }
     }
 }
 

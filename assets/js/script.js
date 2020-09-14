@@ -7,6 +7,7 @@ class PlayMemory {
         this.points = 0;
         this.plays = 0;
         this.isCompare = false;
+        this.difficulty = 6;
         this.animals = ['bear','bee','bird','butterfly','cat','chicken','cow','dog','dolphin','duck','elephant','fish','frog','horse','lion','owl','panda','parrot','penguin','pig','rabbit','sheep','turtle','whale'];
     }
 
@@ -92,7 +93,7 @@ class PlayMemory {
      * @param {Object} flippers - array com o escopo dos dois cards clicados
      */
     compareCards( flippers ) {
-        const first = flippers[0], second = flippers[1], self = this;
+        const [ first, second ] = flippers, self = this;
 
         if( first.getAttribute( 'data-name' ) === second.getAttribute( 'data-name' ) ) {
             setTimeout( () => {
@@ -118,14 +119,22 @@ class PlayMemory {
         document.querySelector( '.play-container .text .plays' ).innerText = self.plays;
     }
 
-    getPlayMarkup( limit ) {
+    /**
+     * Método que cria o cenário do jogo de acordo com a dificuldade selecionada
+     *
+     * @memberof PlayMemory
+     * @method getPlayMarkup
+     * @param {Number} limit - nível de dificuldade selecionado no select
+     * @return {String} markup - markup do jogo
+     */
+    getPlayMarkup( limit = this.difficulty ) {
         const self = this;
         let i = 0, markup = '';
-
+        // ordena o array randomicamente
         if( limit !== 24 ) {
             for ( let index = self.animals.length - 1; index > 0; index-- ) {
                 const j = Math.floor( Math.random() * ( index + 1 ) );
-                [self.animals[index], self.animals[j]] = [self.animals[j], self.animals[index]];
+                [ self.animals[index], self.animals[j] ] = [ self.animals[j], self.animals[index] ];
             }
         }
 
@@ -147,10 +156,17 @@ class PlayMemory {
 
         return markup;
     }
-    
+
+    /**
+     * Método que adiciona ação no botão iniciar jogo
+     *
+     * @memberof PlayMemory
+     * @method startButtonAction
+     */
     startButtonAction() {
         const startButton = document.querySelector( '.btn.start' );
         const difficulty = document.querySelector( 'select.difficulty' );
+        const container = document.querySelector( '.container' );
         const startContainer = document.querySelector( '.play-container.start' );
         const playContainer = document.querySelector( '.play-container.play' );
         const infoContainer = document.querySelector( '.play-container.info' );
@@ -160,18 +176,25 @@ class PlayMemory {
             startContainer.classList.add( 'hidden' );
             playContainer.classList.remove( 'hidden' );
             infoContainer.classList.remove( 'hidden' );
+
+            if( +difficulty.value !== self.difficulty )
+                self.difficulty = +difficulty.value;
+
+            if( +difficulty.value === 24 )
+                container.classList.add( 'full' );
             
-            playContainer.innerHTML = self.getPlayMarkup( +difficulty.value );
+            playContainer.innerHTML = self.getPlayMarkup();
             
-            self.flippers = document.querySelectorAll( '.flipper' );
-            self.totalPoints = self.flippers.length / 2;
-        
-            self.sortCardsRandom();
-            self.addClickAction();
-            self.removeFlip();
+            self.startGame();
         };
     }
 
+    /**
+     * Método que finaliza o jogo
+     *
+     * @memberof PlayMemory
+     * @method finishGame
+     */
     finishGame() {
         const self = this;
         const finishContainer = document.querySelector( '.play-container.finish' );
@@ -195,9 +218,28 @@ class PlayMemory {
             finishContainer.classList.add( 'hidden' );
             playContainer.classList.remove( 'hidden' );
 
-            self.removeFlip();
-            self.sortCardsRandom();
+            if( self.difficulty !== 24 )
+                playContainer.innerHTML = self.getPlayMarkup();
+
+            self.startGame();
         };
+    }
+
+    /**
+     * Método que inicia/recomeça o jogo
+     *
+     * @memberof PlayMemory
+     * @method startGame
+     */
+    startGame() {
+        const self = this;
+
+        self.flippers = document.querySelectorAll( '.flipper' );
+        self.totalPoints = self.flippers.length / 2;
+
+        self.sortCardsRandom();
+        self.addClickAction();
+        self.removeFlip();
     }
     
 }
