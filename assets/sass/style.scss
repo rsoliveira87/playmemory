@@ -144,6 +144,10 @@ body {
     .card {
         @include my-property(backface-visibility, hidden);
         position: absolute;
+
+        &.back {
+            @include my-property(transform, rotateY(0deg));
+        } 
         
         &.front {
             @include my-property(transform, rotateY(180deg));
