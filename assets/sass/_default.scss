@@ -42,7 +42,7 @@ a:visited {
         }
 
         &.full {
-            max-width: 90%;
+            max-width: 92%;
             @include my-property(transform, translateY(60px));
         }
     }

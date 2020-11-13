@@ -141,7 +141,7 @@ class PlayMemory {
         for( let index = 0; index < 2; index++  ) {
             for( ; i < limit; i++ ) {
                 markup += `
-                            <a href="#" class="flipper flip" data-name="${self.animals[i]}">
+                            <a class="flipper flip" data-name="${self.animals[i]}">
                                 <div class="card front">
                                     <i class="icons ${self.animals[i]}"></i>
                                 </div>
@@ -197,6 +197,7 @@ class PlayMemory {
      */
     finishGame() {
         const self = this;
+        const container = document.querySelector( '.container' );
         const finishContainer = document.querySelector( '.play-container.finish' );
         const playContainer = document.querySelector( '.play-container.play' );
         const restartButton = document.querySelector( '.play-container .btn.restart' );
@@ -205,6 +206,7 @@ class PlayMemory {
             setTimeout( () => {
                 playContainer.classList.add( 'hidden' );
                 finishContainer.classList.remove( 'hidden' );
+                container.classList.remove( 'full' );
             }, 1000 );
         }
 
