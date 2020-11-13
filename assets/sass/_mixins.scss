@@ -1,5 +1,0 @@
-@mixin my-property($property, $value) {
-    @each $navigator in $navigators {
-        #{$navigator}#{$property}: $value;
-    }
-}
